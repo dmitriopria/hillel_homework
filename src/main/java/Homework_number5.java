@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class homework_number5 {
+public class Homework_number5 {
 
     public static void main(String[] args) {
 
