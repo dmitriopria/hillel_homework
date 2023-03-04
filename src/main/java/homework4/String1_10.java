@@ -1,3 +1,7 @@
+package homework4;
+
+import java.util.Objects;
+
 public class String1_10 {
 
     public static void main(String[] args) {
@@ -19,6 +23,7 @@ public class String1_10 {
     without those 'x' chars, and otherwise return the string unchanged.
     This is a little harder than it looks. */
     public static String withoutX2(String str) {
+        Objects.requireNonNull(str);
         String result = "";
         for (int i = 0; i < str.length(); i++) {
             if (i < 2 && str.charAt(i) == 'x') {
@@ -33,6 +38,7 @@ public class String1_10 {
     Except keep the first char if it is 'a' and keep the second char if it is 'b'.
     The string may be any length. Harder than it looks. */
     public static String deFront(String str) {
+        Objects.requireNonNull(str);
         String result = "";
         for (int i = 0; i < str.length(); i++) {
             if (i == 0 && str.charAt(i) != 'a' || i == 1 && str.charAt(1) != 'b') {
@@ -45,9 +51,11 @@ public class String1_10 {
 
     /* Given two strings, append them together (known as "concatenation") and return
      the result. However, if the strings are different lengths, omit chars from
-     the longer string so it is the same length as the shorter string.
+     the longer string, so it is the same length as the shorter string.
      So "Hello" and "Hi" yield "loHi". The strings may be any length. */
     public static String minCat(String a, String b) {
+        Objects.requireNonNull(a);
+        Objects.requireNonNull(b);
         String result = "";
         if (a.length() > b.length()) {
             result = a.substring(a.length() - b.length()) + b;
@@ -60,6 +68,7 @@ public class String1_10 {
     /* Given a string of any length, return a new string where the last 2 chars,
     if present, are swapped, so "coding" yields "codign". */
     public static String lastTwo(String str) {
+        Objects.requireNonNull(str);
         if (str.length() < 2) {
             return str;
         }
@@ -71,6 +80,7 @@ public class String1_10 {
     /* Given a string, return a string length 2 made of its first 2 chars.
     If the string length is less than 2, use '@' for the missing chars. */
     public static String atFirst(String str) {
+        Objects.requireNonNull(str);
         if (str.length() >= 2) {
             return str.substring(0, 2);
         } else if (str.length() == 1) {
@@ -83,6 +93,8 @@ public class String1_10 {
     If the index is too big or too small to define a string length 2,
     use the first 2 chars. The string length will be at least 2. */
     public static String twoChar(String str, int index) {
+        Objects.requireNonNull(str);
+        Objects.requireNonNull(index);
         if (index > str.length() - 2 || index < 0) {
             return str.substring(0, 2);
         } else
@@ -98,6 +110,7 @@ public class String1_10 {
     /* Given a string, return a "rotated right 2" version where the last 2 chars
     are moved to the start. The string length will be at least 2. */
     public static String right2(String str) {
+        Objects.requireNonNull(str);
         String end = str.substring(str.length() - 2, str.length());
         String start = str.substring(0, str.length() - 2);
         return end + start;
@@ -107,6 +120,8 @@ public class String1_10 {
     the shorter string on the outside and the longer string on the inside.
     The strings will not be the same length, but they may be empty (length 0). */
     public static String comboString(String a, String b) {
+        Objects.requireNonNull(a);
+        Objects.requireNonNull(b);
         if (a.length() > b.length()) {
             return b + a + b;
         } else
@@ -118,6 +133,7 @@ public class String1_10 {
     there is, so "X" yields "X", and the empty string "" yields the empty string "".
     Note that str.length() returns the length of a string. */
     public static String firstTwo(String str) {
+        Objects.requireNonNull(str);
         if (str.length() > 2) {
             return str.substring(0, 2);
         } else

@@ -1,3 +1,7 @@
+package homework4;
+
+import java.util.Objects;
+
 public class String3_2 {
 
     public static void main(String[] args) {
@@ -10,6 +14,7 @@ public class String3_2 {
     /* We'll say that a "triple" in a string is a char appearing three times in a row.
     Return the number of triples in the given string. The triples may overlap. */
     public static int countTriple(String str) {
+        Objects.requireNonNull(str);
         int counter = 0;
         for (int i = 0; i < str.length() - 2; i++) {
             if (str.charAt(i) == str.charAt(i + 1) && str.charAt(i) == str.charAt(i + 2))
@@ -21,6 +26,7 @@ public class String3_2 {
     /* Given a string, return the length of the largest "block" in the string.
     A block is a run of adjacent chars that are the same. */
     public static int maxBlock(String str) {
+        Objects.requireNonNull(str);
         int max = 0;
         int count = 1;
         for (int i = 1; i < str.length(); i++) {

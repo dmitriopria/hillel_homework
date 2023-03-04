@@ -1,4 +1,7 @@
+package homework5;
+
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,19 +9,22 @@ public class Homework_number5 {
 
     public static void main(String[] args) {
 
-        System.out.println(findSymbolOccurance("abbccc", 'c'));
+        System.out.println(findSymbolOccurrence("abbccc", 'c'));
         System.out.println(findWordPosition("aaabbmmm", "bbb"));
+        System.out.println(reverseStringCheating("Hello"));
         System.out.println(reverseString("Hello"));
         System.out.println(isPalindrome("abccba"));
 
-        playGame();
+        Homework_number5.playGame();
 
     }
 
-    /* Створити метод findSymbolOccurance. Метод приймає як параметр рядок і символ.
+    /* Створити метод findSymbolOccurrence. Метод приймає як параметр рядок і символ.
     Необхідно обчислити, скільки разів символ зустрічається в переданому рядку
     і повернути це числове значення. */
-    public static int findSymbolOccurance(String inputString, char inputChar) {
+    public static int findSymbolOccurrence(String inputString, char inputChar) {
+        Objects.requireNonNull(inputString);
+        Objects.requireNonNull(inputChar);
         int counter = 0;
         for (int i = 0; i < inputString.length(); i++) {
             if (inputString.charAt(i) == inputChar) {
@@ -33,19 +39,32 @@ public class Homework_number5 {
     частиною рядка source. Якщо так, тоді повернути номер позиції (індекс)
     першого елемента підрядка у рядку, інакше повернути -1. */
     public static int findWordPosition(String source, String target) {
+        Objects.requireNonNull(source);
+        Objects.requireNonNull(target);
         return source.indexOf(target);
     }
 
     /* Створити метод stringReverse. Метод приймає як параметр - рядок.
     Необхідно її розгорнути та повернути змінений варіант. */
-    public static String reverseString(String inputString) {
+    public static String reverseStringCheating(String inputString) {
+        Objects.requireNonNull(inputString);
         return "\u202E" + inputString;
+    }
+
+    public static String reverseString(String inputString) {
+        Objects.requireNonNull(inputString);
+        String reversedInput = "";
+        for (int i = inputString.length() - 1; i > -1; i--) {
+            reversedInput += inputString.charAt(i);
+        }
+        return reversedInput;
     }
 
     /* Створити метод isPalindrome. Метод приймає як параметр - рядок.
     Необхідно Перевірити, чи є переданий рядок паліндромом.
     Якщо так, тоді повернуть true, інакше false. */
     public static boolean isPalindrome(String inputString) {
+        Objects.requireNonNull(inputString);
         int leftIndex = 0;
         int rightIndex = inputString.length() - 1;
         while (leftIndex < rightIndex) {
@@ -76,7 +95,7 @@ public class Homework_number5 {
     /**
      * Initialization and realization of this game are all in one methode.
      * I could do separation of code, but I did all in one to make it easy readable
-     * for you on github.
+     * for you on GitHub.
      * Additionally, I have printed the words to make the game easier for player.
      **/
     public static void playGame() {
