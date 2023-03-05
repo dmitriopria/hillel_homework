@@ -1,7 +1,5 @@
 package homework4;
 
-import java.util.Objects;
-
 public class Recursion2_3 {
 
     public static void main(String[] args) {
@@ -19,7 +17,6 @@ public class Recursion2_3 {
     method that takes whatever arguments you like, and make the initial call to your
     recursive helper from splitOdd10(). (No loops needed. */
     public static boolean splitOdd10(int[] nums) {
-        Objects.requireNonNull(nums);
         return splitOdd10Helper(nums, 0, 0, 0);
     }
 
@@ -39,7 +36,6 @@ public class Recursion2_3 {
     (No loops needed.) */
 
     public static boolean split53(int[] nums) {
-        Objects.requireNonNull(nums);
         return split53Helper(nums, 0, 0, 0);
     }
 
@@ -64,9 +60,6 @@ public class Recursion2_3 {
      If a value in the array is chosen to be in the group, the value immediately
      following it in the array must not be chosen. (No loops needed.) */
     public static boolean groupNoAdj(int start, int[] nums, int target) {
-        Objects.requireNonNull(start);
-        Objects.requireNonNull(nums);
-        Objects.requireNonNull(target);
         if (target == 0) {
             return true;
         }

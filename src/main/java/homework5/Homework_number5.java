@@ -24,7 +24,6 @@ public class Homework_number5 {
     і повернути це числове значення. */
     public static int findSymbolOccurrence(String inputString, char inputChar) {
         Objects.requireNonNull(inputString);
-        Objects.requireNonNull(inputChar);
         int counter = 0;
         for (int i = 0; i < inputString.length(); i++) {
             if (inputString.charAt(i) == inputChar) {
@@ -54,7 +53,7 @@ public class Homework_number5 {
     public static String reverseString(String inputString) {
         Objects.requireNonNull(inputString);
         String reversedInput = "";
-        for (int i = inputString.length() - 1; i > -1; i--) {
+        for (int i = inputString.length() - 1; i >= 0; i--) {
             reversedInput += inputString.charAt(i);
         }
         return reversedInput;

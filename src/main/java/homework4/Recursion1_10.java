@@ -1,7 +1,5 @@
 package homework4;
 
-import java.util.Objects;
-
 public class Recursion1_10 {
 
     public static void main(String[] args) {
@@ -23,7 +21,6 @@ public class Recursion1_10 {
     /* Given n of 1 or more, return the factorial of n, which is
     n * (n-1) * (n-2) ... 1. Compute the result recursively (without loops). */
     public static int factorial(int n) {
-        Objects.requireNonNull(n);
         if (n == 1) return 1;
         else return n * factorial(n - 1);
     }
@@ -33,7 +30,6 @@ public class Recursion1_10 {
     We want to compute the total number of ears across all the bunnies recursively
     (without loops or multiplication). */
     public static int bunnyEars(int bunnies) {
-        Objects.requireNonNull(bunnies);
         if (bunnies == 0) return 0;
         else return 2 + bunnyEars(bunnies - 1);
     }
@@ -45,7 +41,6 @@ public class Recursion1_10 {
     Define a recursive fibonacci(n) method that returns the nth fibonacci number,
     with n=0 representing the start of the sequence. */
     public static int fibonacci(int n) {
-        Objects.requireNonNull(n);
         if (n == 0 || n == 1) return n;
         else return fibonacci(n - 1) + fibonacci(n - 2);
     }
@@ -53,7 +48,6 @@ public class Recursion1_10 {
     /* Given a string, compute recursively (no loops) a new string where all the
     lowercase 'x' chars have been changed to 'y' chars. */
     public static String changeXY(String str) {
-        Objects.requireNonNull(str);
         if (str.isEmpty()) return str;
         else if (str.charAt(0) == 'x') return 'y' + changeXY(str.substring(1));
         else return str.charAt(0) + changeXY(str.substring(1));
@@ -64,8 +58,6 @@ public class Recursion1_10 {
     at the given index. In this way, a recursive call can pass index+1 to move
     down the array. The initial call will pass in index as 0. */
     public static boolean array6(int[] nums, int index) {
-        Objects.requireNonNull(nums);
-        Objects.requireNonNull(index);
         if (index >= nums.length) {
             return false;
         } else if (nums[index] == 6) {
@@ -78,7 +70,6 @@ public class Recursion1_10 {
     /* Given a string, compute recursively a new string where all the adjacent
     chars are now separated by a "*". */
     public static String allStar(String str) {
-        Objects.requireNonNull(str);
         if (str.length() <= 1) {
             return str;
         } else {
@@ -91,7 +82,6 @@ public class Recursion1_10 {
     3 pairs -- 2 for A and 1 for x. Recursively compute the number of pairs
     in the given string. */
     public static int countPairs(String str) {
-        Objects.requireNonNull(str);
         if (str.length() <= 2) {
             return 0;
         } else if (str.charAt(0) == str.charAt(2)) {
@@ -104,7 +94,6 @@ public class Recursion1_10 {
     /* Given a string, return recursively a "cleaned" string where adjacent chars
     that are the same have been reduced to a single char. So "yyzzza" yields "yza". */
     public static String stringClean(String str) {
-        Objects.requireNonNull(str);
         if (str.length() <= 1) {
             return str;
         } else if (str.charAt(0) == str.charAt(1)) {
@@ -118,7 +107,6 @@ public class Recursion1_10 {
     parenthesis, like "(())" or "((()))". Suggestion: check the first and last chars,
     and then recur on what's inside them. */
     public static boolean nestParen(String str) {
-        Objects.requireNonNull(str);
         if (str.equals("")) {
             return true;
         } else if (str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')') {
@@ -131,8 +119,6 @@ public class Recursion1_10 {
     /* Given a string and a non-empty substring sub, compute recursively the
     largest substring which starts and ends with sub and return its length. */
     public static int strDist(String str, String sub) {
-        Objects.requireNonNull(str);
-        Objects.requireNonNull(sub);
         if (str.length() < sub.length()) {
             return 0;
         } else if (str.startsWith(sub)) {

@@ -1,7 +1,5 @@
 package homework4;
 
-import java.util.Objects;
-
 public class String2_5 {
 
     public static void main(String[] args) {
@@ -19,8 +17,6 @@ public class String2_5 {
     Ignore cases where there is no char before or after the word, and a char
     may be included twice if it is between two words. */
     public static String wordEnds(String str, String word) {
-        Objects.requireNonNull(str);
-        Objects.requireNonNull(word);
         int wordLength = word.length();
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < str.length() - wordLength + 1; i++) {
@@ -39,7 +35,6 @@ public class String2_5 {
     /* Given a string, return a string where for every char in the original,
     there are two chars. */
     public static String doubleChar(String str) {
-        Objects.requireNonNull(str);
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             result.append(str.charAt(i));
@@ -51,7 +46,6 @@ public class String2_5 {
     /* Returns true if for every '*' (star) in the string, if there are chars
     both immediately before and after the star, they are the same. */
     public static boolean sameStarChar(String str) {
-        Objects.requireNonNull(str);
         for (int i = 1; i < str.length() - 1; i++) {
             if (str.charAt(i) == '*' && str.charAt(i - 1) != str.charAt(i + 1)) {
                 return false;
@@ -64,7 +58,6 @@ public class String2_5 {
     that is between the first and last appearance of "bread" in the given string, or
     return the empty string "" if there are not two pieces of bread. */
     public static String getSandwich(String str) {
-        Objects.requireNonNull(str);
         int start = str.indexOf("bread");
         int end = str.lastIndexOf("bread");
         if (start == end) {
@@ -78,7 +71,6 @@ public class String2_5 {
     with 'z' and ending with 'p'. Return a string where for all such words,
     the middle letter is gone, so "zipXzap" yields "zpXzp". */
     public static String zipZap(String str) {
-        Objects.requireNonNull(str);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             if (i + 2 < str.length() && str.charAt(i) == 'z' && str.charAt(i + 2) == 'p') {
