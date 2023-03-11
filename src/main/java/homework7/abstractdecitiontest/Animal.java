@@ -1,9 +1,9 @@
-package homework7.abstractTest;
+package homework7.abstractdecitiontest;
 
 public abstract class Animal {
 
-    protected String name;
     private static int animalCount;
+    protected String name;
 
     public Animal(String name) {
         this.name = name;

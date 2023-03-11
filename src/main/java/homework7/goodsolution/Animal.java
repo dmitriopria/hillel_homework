@@ -1,17 +1,19 @@
-package homework7.abstractTest;
+package homework7.goodsolution;
 
-public class Dog extends Animal {
+public class Animal {
 
-    private int maxRunDistance = 500;
-    private int maxSwimDistance = 10;
-    private static int dogCount = 0;
+    private static int animalCount;
+    private String name;
+    private int maxRunDistance;
+    private int maxSwimDistance;
 
-    public Dog(String name) {
-        super(name);
-        dogCount++;
+    public Animal(String name, int maxRunDistance, int maxSwimDistance) {
+        this.name = name;
+        this.maxRunDistance = maxRunDistance;
+        this.maxSwimDistance = maxSwimDistance;
+        animalCount++;
     }
 
-    @Override
     public void run(int distance) {
         if (distance <= 0) {
             System.out.println("Enter valid number");
@@ -22,7 +24,6 @@ public class Dog extends Animal {
         }
     }
 
-    @Override
     public void swim(int distance) {
         if (distance <= 0) {
             System.out.println("Enter valid number");
@@ -33,8 +34,11 @@ public class Dog extends Animal {
         }
     }
 
-    public static int getDogCount() {
-        return dogCount;
+    public static int getAnimalCount() {
+        return animalCount;
+    }
+    public String getName() {
+        return name;
     }
 
 }

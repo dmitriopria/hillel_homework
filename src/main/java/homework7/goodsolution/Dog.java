@@ -1,4 +1,4 @@
-package homework7.goodDecision;
+package homework7.goodsolution;
 
 public class Dog extends Animal {
 

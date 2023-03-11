@@ -1,9 +1,9 @@
-package homework7.abstractTest;
+package homework7.abstractdecitiontest;
 
 public class Cat extends Animal {
 
-    private int maxRunDistance = 200;
     private static int catCount = 0;
+    private int maxRunDistance = 200;
 
     public Cat(String name) {
         super(name);

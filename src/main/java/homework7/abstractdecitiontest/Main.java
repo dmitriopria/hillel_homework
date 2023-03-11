@@ -1,4 +1,4 @@
-package homework7.abstractTest;
+package homework7.abstractdecitiontest;
 
 public class Main {
     public static void main(String[] args) {
