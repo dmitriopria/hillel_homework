@@ -7,7 +7,7 @@ public class Main {
                 new Cat("Tom", 500, 3),
                 new Robot("R2D2", 1200, 3)
         };
-        Obstacle[] obstacles;                                       // plus check the figure Main
+        Obstacle[] obstacles;
         obstacles = new Obstacle[]{
                 new Racetrack("first racetrack", 200),
                 new Wall("first wall", 2),
@@ -22,7 +22,6 @@ public class Main {
                 if (!obstacle.overcome(participant)) {
                     break;
                 }
-                //System.out.println(participant.getName() + " wins!");
             }
             System.out.println();
         }

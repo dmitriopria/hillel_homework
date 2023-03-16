@@ -2,10 +2,10 @@ package homework8.secondvariant;
 
 public abstract class Obstacle {
 
-    private String obstacleName;
-    private int difficulty;
+    private final String obstacleName;
+    private final int difficulty;
 
-    protected Obstacle(String obstacleName, int difficulty) {           // protected?
+    protected Obstacle(String obstacleName, int difficulty) {
         this.obstacleName = obstacleName;
         this.difficulty = difficulty;
     }

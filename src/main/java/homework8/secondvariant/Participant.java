@@ -2,9 +2,9 @@ package homework8.secondvariant;
 
 public class Participant {
 
-    private String name;
-    private int maxRunDistance;
-    private int maxJumpHeight;
+    private final String name;
+    private final int maxRunDistance;
+    private final int maxJumpHeight;
 
     public Participant(String name, int maxRunDistance, int maxJumpHeight) {
         this.name = name;
@@ -26,10 +26,6 @@ public class Participant {
 
     public int getMaxRunDistance() {
         return maxRunDistance;
-    }
-
-    public void setMaxRunDistance(int maxRunDistance) {
-        this.maxRunDistance = maxRunDistance;
     }
 
     public int getMaxJumpHeight() {

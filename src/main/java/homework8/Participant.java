@@ -11,14 +11,14 @@ public class Participant {
         this.maxJumpHeight = maxJumpHeight;
     }
 
-    boolean run(int distance) {
-        while (distance <= maxRunDistance) {                    // if or while here doesn't matter?
-            this.maxRunDistance = maxRunDistance - distance;
-            System.out.print(getName() + " runs ");             // is it ok? first part of line
+    boolean run(int distance) {                                         // Try to make class for boolean check
+        if (distance <= maxRunDistance) {
+            this.maxRunDistance = maxRunDistance - distance;            // work here with other field
+            System.out.print(getName() + " runs ");
             return true;
         }
         System.out.print(getName() + " can't run ");
-        return false;                                           // I don't like boolean chain logic
+        return false;
     }
 
     boolean jump(int height) {

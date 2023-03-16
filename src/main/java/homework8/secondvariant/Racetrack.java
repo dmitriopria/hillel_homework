@@ -10,14 +10,7 @@ public class Racetrack extends Obstacle {
     @Override
     public boolean overcome(Participant participant) {
         Objects.requireNonNull(participant);
-        if (participant.getMaxRunDistance() >= getDifficulty()) {
-            participant.setMaxRunDistance(participant.getMaxRunDistance() - getDifficulty());
-            // System.out.println(participant.getName() + " passed " + getObstacleName() + " with length " + getDifficulty());
-            return true;
-        } else {
-            // System.out.println(participant.getName() + " can't pass " + getObstacleName() + " with length " + getDifficulty() + " and out.");
-            return false;
-        }
+        return participant.getMaxRunDistance() >= getDifficulty();
     }
 
 }

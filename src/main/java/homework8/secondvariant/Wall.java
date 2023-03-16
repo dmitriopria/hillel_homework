@@ -10,13 +10,7 @@ public class Wall extends Obstacle {
     @Override
     public boolean overcome(Participant participant) {
         Objects.requireNonNull(participant);
-        if (participant.getMaxJumpHeight() >= getDifficulty()) {            // simplify??
-            // System.out.println(participant.getName() + " passed " + getObstacleName() + " with height " + getDifficulty());
-            return true;
-        } else {
-            // System.out.println(participant.getName() + " can't pass " + getObstacleName() + " with height " + getDifficulty() + " and out.");
-            return false;
-        }
+        return participant.getMaxJumpHeight() >= getDifficulty();
     }
 
 }

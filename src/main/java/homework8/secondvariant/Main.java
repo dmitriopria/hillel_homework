@@ -7,8 +7,7 @@ public class Main {
                 new Cat("Tom", 500, 3),
                 new Robot("R2D2", 1200, 3)
         };
-        Obstacle[] obstacles;
-        obstacles = new Obstacle[]{
+        Obstacle[] obstacles = {
                 new Racetrack("first racetrack", 200),
                 new Wall("first wall", 2),
                 new Racetrack("second racetrack", 300),
