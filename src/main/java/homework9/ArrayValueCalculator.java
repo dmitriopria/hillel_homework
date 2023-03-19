@@ -2,11 +2,13 @@ package homework9;
 
 public class ArrayValueCalculator {
 
-    public int doCalc(String[][] inputArray) throws ArraySizeException, ArrayDataException {
-        for (int i = 0; i < 4; i++) {
-            if (inputArray[i].length != 4) {
-                throw new ArraySizeException("Input array size should be 4X4 - 4 arrays must contain 4 elements each");
-            }
+    public int doCalc(String[][] inputArray) {
+        if (inputArray.length != 4 ||
+                inputArray[0].length != 4 ||
+                inputArray[1].length != 4 ||
+                inputArray[2].length != 4 ||
+                inputArray[3].length != 4) {
+            throw new ArraySizeException("Input array size should be 4X4 - 4 arrays must contain 4 elements each");
         }
         int arraySum = 0;
         for (int i = 0; i < inputArray.length; i++) {
@@ -17,7 +19,7 @@ public class ArrayValueCalculator {
                     int firsIndexCorr = i + 1;
                     int secondIndexCorr = j + 1;
                     throw new ArrayDataException("Invalid data in cell (" + firsIndexCorr + "," + secondIndexCorr + "): " +
-                            inputArray[i][j] + " - input must contain only numbers", e);
+                            inputArray[i][j] + " - all array cells must be only numbers");
                 }
             }
         }

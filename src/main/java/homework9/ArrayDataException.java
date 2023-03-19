@@ -1,7 +1,7 @@
 package homework9;
 
-public class ArrayDataException extends Exception {
-    public ArrayDataException(String message, NumberFormatException e) {
+public class ArrayDataException extends RuntimeException {
+    public ArrayDataException(String message) {
         super(message);
     }
 }
