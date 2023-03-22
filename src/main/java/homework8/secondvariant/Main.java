@@ -15,22 +15,9 @@ public class Main {
                 new Racetrack("third racetrack", 500),
                 new Wall("third wall", 3)
         };
-
-        for (Participant participant : participants) {
-            for (Obstacle obstacle : obstacles) {
-                if (!obstacle.overcome(participant)) {
-                    System.out.println(participant.getName() + " can't pass " +
-                            obstacle.getObstacleName() + " which is " +
-                            obstacle.getDifficulty() + " and out.");
-                    break;
-                } else {
-                    System.out.println(participant.getName() + " passed " +
-                            obstacle.getObstacleName() + " which is " + obstacle.getDifficulty());
-                }
-            }
-            System.out.println();
-        }
+        Competition competition = new Competition();
+        CompetitionResult result = competition.start(participants, obstacles);
+        System.out.println(result.getCompetitionResult());
     }
-
 }
 
