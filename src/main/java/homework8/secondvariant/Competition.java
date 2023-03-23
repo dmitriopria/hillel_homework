@@ -2,9 +2,12 @@ package homework8.secondvariant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Competition {
     public CompetitionResult start(Participant[] participants, Obstacle[] obstacles) {
+        Objects.requireNonNull(participants);
+        Objects.requireNonNull(obstacles);
         List<String> successResult = new ArrayList<>();
         List<String> failureResult = new ArrayList<>();
         for (Participant participant : participants) {
