@@ -9,19 +9,20 @@ public class FileManagerNIO {
     private Path currentDirectory = Paths.get("").toAbsolutePath();
 
     public void run() throws IOException {
-        ReadableByteChannel channel = Channels.newChannel(System.in);
-        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-        StringBuilder stringBuilder = new StringBuilder();
-        while (channel.read(byteBuffer) < 0) {
-            byteBuffer.flip();
-            while (byteBuffer.hasRemaining()) {
-                stringBuilder.append((char) byteBuffer.get());
-            }
-            byteBuffer.clear();
-            channel.close();
-        }
         while (true) {
             System.out.print(currentDirectory + "> ");
+            ReadableByteChannel channel = Channels.newChannel(System.in);
+            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+            StringBuilder stringBuilder = new StringBuilder();
+            while (channel.read(byteBuffer) > 0) {
+                byteBuffer.flip();
+                while (byteBuffer.hasRemaining()) {
+                    stringBuilder.append((char) byteBuffer.get());
+                }
+                byteBuffer.clear();
+            }
+            channel.close();
+
             String command = String.valueOf(stringBuilder);
             String[] tokens = command.split("\\s+");
             switch (tokens[0]) {
