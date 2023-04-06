@@ -1,4 +1,4 @@
-package hw10;
+package homework10;
 
 import java.io.IOException;
 

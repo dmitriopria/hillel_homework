@@ -1,4 +1,4 @@
-package hw10;
+package homework10;
 
 public class FileMaxSizeReachedException extends RuntimeException {
     private final String filePath;
