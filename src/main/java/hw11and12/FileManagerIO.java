@@ -1,4 +1,4 @@
-package hw11;
+package hw11and12;
 
 import java.io.*;
 
