@@ -1,11 +1,12 @@
 package hw10;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException {
-        String message = "test3";
-        FileLoggerConfiguration.loadTextToFile(message);
+    public static void main(String[] args) {
+        String message = "test1";
+        FileLogger logger = new FileLogger();
+        logger.debug(message);
+        logger.info(message);
     }
 }
+
 

@@ -1,4 +1,4 @@
-FILE- C:/hillel/hillel_homework/src/main/java/hw10/application.log
-LEVEL- DEBUG
-SIZE- 1024
-FORMAT- [%s][%s] %s%n
+file = logs/application.log
+level = DEBUG
+size = 1024
+format = [%s][%s] %s%n

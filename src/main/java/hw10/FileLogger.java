@@ -8,59 +8,52 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class FileLogger {
-    private final FileLoggerConfiguration configuration;
-    private final DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-    public FileLogger(FileLoggerConfiguration configuration) {
-        this.configuration = configuration;
-    }
+    private static final DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final FileLoggerConfiguration configuration =
+            new FileLoggerConfigurationLoader()
+                    .loadConfiguration("C:/hillel/hillel_homework/src/main/java/hw10/configuration.txt");
 
     public void debug(String message) {
         Objects.requireNonNull(message);
-        log(LoggingLevel.DEBUG, message);
+        if (isDebugEnabled()) {
+            log(LoggingLevel.DEBUG, message);
+        }
     }
 
     public void info(String message) {
         Objects.requireNonNull(message);
-        log(LoggingLevel.INFO, message);
+        if (isInfoEnabled()) {
+            log(LoggingLevel.INFO, message);
+        }
     }
 
     private void log(LoggingLevel level, String message) {
-        if (level.compareTo(FileLoggerConfiguration.getLoggingLevel()) < 0) {
-            return;
-        }
-        if (configuration.getFile().length() >= configuration.getMaxFileSize()) {
+        if (isMaxFileSizeExceeded()) {
             createNextFile();
-            createFormattedMessage(level, message);
+            writeToFile(createFormattedMessage(level, message));
         }
-        createFormattedMessage(level, message);
+        writeToFile(createFormattedMessage(level, message));
     }
 
     private void writeToFile(String message) {
         File file = configuration.getFile();
-        long fileSize = file.length();
-        long maxSize = configuration.getMaxFileSize();
-        if (fileSize >= maxSize) {
-            throw new FileMaxSizeReachedException("File size exceeded maximum limit.",
-                    file.getAbsolutePath(), maxSize, fileSize);
-        }
         try (FileWriter writer = new FileWriter(file, true)) {
             writer.write(message);
             writer.flush();
         } catch (IOException e) {
-            System.err.printf("Failed to write log message to file %s: %s%n",
+            String errorMessage = String.format("Failed to write log message to file %s: %s%n",
                     file.getAbsolutePath(), e.getMessage());
+            throw new FailedToWriteLogException(errorMessage);
         }
     }
 
-    private void createFormattedMessage(LoggingLevel level, String message) {
-        String formattedMessage = String.format(configuration.getMessageFormat(),
+    private String createFormattedMessage(LoggingLevel level, String message) {
+        return String.format(configuration.getMessageFormat(),
                 LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 level, message);
-        writeToFile(formattedMessage);
     }
 
-    private File createNextFile() {
+    private void createNextFile() {
         String fileName = configuration.getFile().getName();
         String fileExtension = "";
         int dotIndex = fileName.lastIndexOf(".");
@@ -69,7 +62,18 @@ public class FileLogger {
             fileName = fileName.substring(0, dotIndex);
         }
         String newFileName = fileName + "_" + LocalDateTime.now().format(fileDateFormatter) + fileExtension;
-        return new File(configuration.getFile().getParent(), newFileName);
+        new File(configuration.getFile().getParent(), newFileName);
     }
 
+    private boolean isDebugEnabled() {
+        return configuration.getLoggingLevel() == LoggingLevel.DEBUG;
+    }
+
+    private boolean isInfoEnabled() {
+        return configuration.getLoggingLevel() == LoggingLevel.INFO;
+    }
+
+    private boolean isMaxFileSizeExceeded() {
+        return configuration.getFile().length() > configuration.getMaxFileSize();
+    }
 }
