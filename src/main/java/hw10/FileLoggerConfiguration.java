@@ -10,16 +10,17 @@ public class FileLoggerConfiguration {
     private final String messageFormat;
 
     public FileLoggerConfiguration(File file, LoggingLevel loggingLevel, long maxFileSize, String messageFormat) {
-        Objects.requireNonNull(file);
-        Objects.requireNonNull(loggingLevel);
-        Objects.requireNonNull(messageFormat);
+        this.file = Objects.requireNonNull(file);
+        this.loggingLevel = Objects.requireNonNull(loggingLevel);
+        this.messageFormat = Objects.requireNonNull(messageFormat);
+        this.maxFileSize = validateMaxFileSize(maxFileSize);
+    }
+
+    private long validateMaxFileSize(long maxFileSize) {
         if (maxFileSize < 1) {
             throw new IllegalArgumentException("Maximum file size must be at least 1 byte.");
         }
-        this.file = file;
-        this.loggingLevel = loggingLevel;
-        this.maxFileSize = maxFileSize;
-        this.messageFormat = messageFormat;
+        return maxFileSize;
     }
 
     public File getFile() {
