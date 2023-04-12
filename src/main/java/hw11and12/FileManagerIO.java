@@ -1,31 +1,38 @@
 package hw11and12;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileManagerIO {
+    private static final Logger logger = Logger.getLogger(FileManagerIO.class.getName());
     private String currentDirectory;
-    public void run() throws IOException {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        currentDirectory = System.getProperty("user.dir");
-        while (true) {
-            System.out.print(currentDirectory + ">");
-            String command = reader.readLine();
-            String[] tokens = command.split("\\s+");
-            switch (tokens[0]) {
-                case "cd" -> changeDirectory(tokens);
-                case "cp" -> copyFile(tokens);
-                case "ls" -> listDirectory();
-                case "pwd" -> printWorkingDirectory();
-                case "exit" -> System.exit(0);
-                default -> System.out.println("Unknown command");
+    public void run() {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            currentDirectory = System.getProperty("user.dir");
+            while (true) {
+                logger.log(Level.INFO, "{0}>", currentDirectory);
+                String command = reader.readLine();
+                String[] tokens = command.split("\\s+");
+                switch (tokens[0]) {
+                    case "cd" -> changeDirectory(tokens);
+                    case "cp" -> copyFile(tokens);
+                    case "ls" -> listDirectory();
+                    case "pwd" -> printWorkingDirectory();
+                    case "exit" -> System.exit(0);
+                    default -> logger.log(Level.WARNING, "Unknown command: {0}", command);
+                }
             }
+        } catch (IOException e) {
+            throw new RuntimeException("Error of input reading ", e);
         }
     }
 
     private void changeDirectory(String[] tokens) {
         if (tokens.length < 2) {
-            System.out.println("Usage: cd <directory>");
+            logger.log(Level.INFO, "Usage: cd <directory>");
             return;
         }
         String path = tokens[1];
@@ -40,14 +47,14 @@ public class FileManagerIO {
         }
         File file = new File(currentDirectory);
         if (!file.exists() || !file.isDirectory()) {
-            System.out.println("Directory does not exist: " + currentDirectory);
+            logger.log(Level.INFO, "Directory does not exist: {0}", currentDirectory);
             currentDirectory = System.getProperty("user.dir");
         }
     }
 
-    private void copyFile(String[] tokens) throws IOException {
+    private void copyFile(String[] tokens) {
         if (tokens.length < 3) {
-            System.out.println("Usage: cp <source_file> <destination_file>");
+            logger.log(Level.INFO, "Usage: cp <source_file> <destination_file>");
             return;
         }
         String sourcePath = tokens[1];
@@ -56,24 +63,25 @@ public class FileManagerIO {
         File destinationFile = new File(destinationPath);
 
         if (!sourceFile.exists() || !sourceFile.isFile()) {
-            System.out.println("Source file does not exist: " + sourcePath);
+            logger.log(Level.WARNING, "Source file does not exist: {0}", sourcePath);
             return;
         }
         if (destinationFile.exists()) {
-            System.out.println("Destination file already exists: " + destinationPath);
+            logger.log(Level.WARNING, "Destination file already exists: {0}", destinationPath);
             return;
         }
-        FileInputStream inputStream = new FileInputStream(sourceFile);
-        FileOutputStream outputStream = new FileOutputStream(destinationFile);
-        byte[] buffer = new byte[1024];
-        int length;
+        try (FileInputStream inputStream = new FileInputStream(sourceFile);
+             FileOutputStream outputStream = new FileOutputStream(destinationFile)) {
+            byte[] buffer = new byte[1024];
+            int length;
 
-        while ((length = inputStream.read(buffer)) > 0) {
-            outputStream.write(buffer, 0, length);
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            logger.log(Level.INFO, "File copied successfully: {0}", destinationPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Error copying file", e);
         }
-        inputStream.close();
-        outputStream.close();
-        System.out.println("File copied successfully: " + destinationPath);
     }
 
     private void listDirectory() {
@@ -81,14 +89,13 @@ public class FileManagerIO {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
-                System.out.println(file.getName());
+                logger.log(Level.INFO, file.getName());
             }
         }
     }
 
     private void printWorkingDirectory() {
-        System.out.println(currentDirectory);
+        logger.log(Level.INFO, currentDirectory);
     }
-
 }
 
