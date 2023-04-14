@@ -1,9 +1,8 @@
 package hw11and12;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.io.InputStreamReader;
 import java.nio.file.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,19 +12,12 @@ public class FileManagerNIO {
     private Path currentDirectory = Paths.get("").toAbsolutePath();
 
     public void run() {
-        while (true) {
-            logger.log(Level.INFO, "{0}>", currentDirectory);
-            ReadableByteChannel channel = Channels.newChannel(System.in);
-            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-            try {
-                StringBuilder stringBuilder = new StringBuilder();
-                while (channel.read(byteBuffer) > 0) {
-                    byteBuffer.flip();
-                    while (byteBuffer.hasRemaining()) {
-                        stringBuilder.append((char) byteBuffer.get());
-                    }
-                }
-                String command = String.valueOf(stringBuilder);
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            currentDirectory = Path.of(System.getProperty("user.dir"));
+            while (true) {
+                logger.log(Level.INFO, "{0}>", currentDirectory);
+                String command = reader.readLine();
                 String[] tokens = command.split("\\s+");
                 switch (tokens[0]) {
                     case "cd" -> changeDirectory(tokens);
@@ -35,9 +27,9 @@ public class FileManagerNIO {
                     case "exit" -> System.exit(0);
                     default -> logger.log(Level.WARNING, "Unknown command: {0}", command);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException("Error of input reading ", e);
             }
+        } catch (IOException e) {
+            throw new RuntimeException("Error of input reading ", e);
         }
     }
 
