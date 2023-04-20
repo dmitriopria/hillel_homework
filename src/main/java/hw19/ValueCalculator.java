@@ -3,7 +3,7 @@ package hw19;
 import java.util.Arrays;
 
 public class ValueCalculator {
-    private final float[] array;
+    private final  float[] array;
     private static final int SIZE = 1_000_000;
     private static final int HALF_SIZE = SIZE / 2;
 
@@ -18,7 +18,7 @@ public class ValueCalculator {
         return endTime - startTime;
     }
 
-    private void fillArray(int value) {
+    private synchronized void fillArray(int value) {
         Arrays.fill(array, value);
         float[] firstHalf = new float[HALF_SIZE];
         float[] secondHalf = new float[HALF_SIZE];
