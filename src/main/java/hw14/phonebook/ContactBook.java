@@ -33,10 +33,6 @@ public class ContactBook {
                 foundRecords.add(record);
             }
         }
-        if (foundRecords.isEmpty()) {
-            return null;
-        } else {
-            return foundRecords;
-        }
+        return foundRecords.isEmpty() ? null : foundRecords;
     }
 }

@@ -29,7 +29,7 @@ public class ArrayImplementer {
         return count;
     }
 
-    public static void calcOccurrence(List<String> words) {
+    public static Map<String, Integer> calcOccurrence(List<String> words) {
         Map<String, Integer> occurrence = new HashMap<>();
         for (String word : words) {
             if (occurrence.containsKey(word)) {
@@ -38,28 +38,17 @@ public class ArrayImplementer {
                 occurrence.put(word, 1);
             }
         }
-        for (Map.Entry<String, Integer> entry : occurrence.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }
+        return occurrence;
     }
 
     public static <E> List<E> toList(E[] array) {
         List<E> list = new ArrayList<>(array.length);
         list.addAll(Arrays.asList(array));
-//        for (Type element : array) {
-//            list.add(element);
-//        }
         return list;
     }
 
-    public static List<Integer> findUnique(List<Integer> numbers) {
-        Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-//        uniqueNumbers.addAll(numbers);
-//        for(Integer number : numbers) {
-//            uniqueNumbers.add(number);
-//        }
-//        List<Integer> uniqueList = new ArrayList<>(uniqueNumbers);
-        return new ArrayList<>(uniqueNumbers);
+    public static Set<Integer> findUnique(List<Integer> numbers) {
+        return new HashSet<>(numbers);
     }
 
     public static List<WordOccurrence> findOccurrence(List<String> words) {

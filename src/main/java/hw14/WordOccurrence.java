@@ -1,5 +1,7 @@
 package hw14;
 
+import java.util.Objects;
+
 public class WordOccurrence {
     private String name;
     private int occurrence;
@@ -31,5 +33,18 @@ public class WordOccurrence {
                 "name='" + name + '\'' +
                 ", occurrence=" + occurrence +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WordOccurrence that = (WordOccurrence) o;
+        return occurrence == that.occurrence && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, occurrence);
     }
 }
