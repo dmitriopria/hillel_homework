@@ -17,7 +17,7 @@ public class Main {
         );
 
         System.out.println(ProductsHandler.findExpensiveBooks(products));
-        System.out.println(ProductsHandler.getBookDiscount(products));
+        System.out.println(ProductsHandler.getBooksWithDiscount(products));
         System.out.println(ProductsHandler.findCheapestBook(products));
         System.out.println(ProductsHandler.getLastThreeSupply(products));
         System.out.println(ProductsHandler.sumRequiredPrices(products));

@@ -6,11 +6,11 @@ import java.util.Objects;
 import static hw21.ProductType.BOOK;
 
 public class Product {
-    private final int id;
-    private final ProductType productType;
+    private int id;
+    private ProductType productType;
     private double price;
-    private final boolean discount;
-    private final LocalDate supplyDate;
+    private boolean discount;
+    private LocalDate supplyDate;
 
     public Product(int id, ProductType productType, double price, boolean discount, LocalDate supplyDate) {
         this.id = id;
@@ -42,12 +42,10 @@ public class Product {
     }
 
     public void setPrice(double price) {
-        if (isDiscount()) {
             this.price = price;
-        }
     }
 
-    public boolean isDiscount() {
+    public boolean hasDiscount() {
         return discount;
     }
 

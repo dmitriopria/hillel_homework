@@ -1,9 +1,6 @@
 package hw21;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductsHandler {
@@ -15,11 +12,14 @@ public class ProductsHandler {
                 .toList();
     }
 
-    public static List<Product> getBookDiscount(List<Product> products) {
+    public static List<Product> getBooksWithDiscount(List<Product> products) {
         Objects.requireNonNull(products);
         return products.stream()
-                .filter(product -> product.isBook() && product.isDiscount())
-                .peek(product -> product.setPrice(product.getPrice() * 0.9))
+                .filter(product -> product.isBook() && product.hasDiscount())
+                .map(product -> {
+                    product.setPrice(product.getPrice() * 0.9);
+                    return product;
+                })
                 .toList();
     }
 
@@ -34,7 +34,9 @@ public class ProductsHandler {
     public static List<Product> getLastThreeSupply(List<Product> products) {
         Objects.requireNonNull(products);
         return products.stream()
-                .sorted(Comparator.comparing(Product::getSupplyDate).reversed())
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(Product::getSupplyDate).reversed())))
+                .stream()
                 .limit(3)
                 .toList();
     }
