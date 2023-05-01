@@ -34,10 +34,7 @@ public class ProductsHandler {
     public static List<Product> getLastThreeSupply(List<Product> products) {
         Objects.requireNonNull(products);
         return products.stream()
-                .collect(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(Product::getSupplyDate).reversed())))
-                .stream()
-                .limit(3)
+                .skip(products.size() - 3)
                 .toList();
     }
 
