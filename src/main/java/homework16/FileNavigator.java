@@ -1,52 +1,56 @@
 package homework16;
 
-import java.io.File;
 import java.util.*;
 
 public class FileNavigator {
-    private Map<String, List<File>> fileMap = new HashMap();
+    private Map<String, List<FileData>> fileMap = new HashMap<>();
 
-    public void add(String path) {
-        File file = new File(path);
-        if (file.exists()) {
+    public void add(String name, long size, String path) {
+        Objects.requireNonNull(path);
+        FileData file = new FileData(name, size, path);
+        if (!file.getPath().isEmpty()) {
             if (fileMap.containsKey(path)) {
                 fileMap.get(path).add(file);
             } else {
-                List<File> fileList = new ArrayList<>();
+                List<FileData> fileList = new ArrayList<>();
                 fileList.add(file);
                 fileMap.put(path, fileList);
             }
         } else {
-            System.out.println("NO FILE");
+            throw new RuntimeException("File no found!");
         }
     }
 
-    public List<File> find(String path) {
+    public List<FileData> find(String path) {
+        Objects.requireNonNull(path);
         return fileMap.get(path);
     }
 
-    public List<File> filterBySize(long maxFileSize) {
-        List<File> result = new ArrayList<>();
-        for (List<File> fileList : fileMap.values()) {
-            for (File fileData : fileList) {
-                if (fileData.length() <= maxFileSize) {
-                    result.add(fileData);
+    public List<FileData> filterBySize(long maxFileSize) {
+        if (maxFileSize > 0) {
+            List<FileData> result = new ArrayList<>();
+            for (List<FileData> fileList : fileMap.values()) {
+                for (FileData fileData : fileList) {
+                    if (fileData.getSize() <= maxFileSize) {
+                        result.add(fileData);
+                    }
                 }
             }
+            return result;
+        } else {
+            throw new RuntimeException("File size mustn't be negative!");
         }
-        return result;
     }
 
     public void remove(String path) {
+        Objects.requireNonNull(path);
         fileMap.remove(path);
     }
 
-    public List<File> sortBySize() {
-        List<File> allFiles = new ArrayList<>();
-        for (List<File> files : fileMap.values()) {
-            allFiles.addAll(files);
-        }
-        Collections.sort(allFiles, Comparator.comparingLong(File::length));
-        return allFiles;
+    public List<FileData> sortBySize() {
+        return fileMap.values().stream()
+                .flatMap(List::stream)
+                .sorted(Comparator.comparingLong(FileData::getSize))
+                .toList();
     }
 }
