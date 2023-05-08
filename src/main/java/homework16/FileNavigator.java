@@ -3,25 +3,23 @@ package homework16;
 import java.util.*;
 
 public class FileNavigator {
-    private Map<String, List<FileData>> fileMap = new HashMap<>();
+    private Map<String, FileData> fileMap = new HashMap<>();
 
     public void add(String name, long size, String path) {
         Objects.requireNonNull(path);
         FileData file = new FileData(name, size, path);
         if (!file.getPath().isEmpty()) {
             if (fileMap.containsKey(path)) {
-                fileMap.get(path).add(file);
+                throw new RuntimeException("File already exists!");
             } else {
-                List<FileData> fileList = new ArrayList<>();
-                fileList.add(file);
-                fileMap.put(path, fileList);
+                fileMap.put(path, file);
             }
         } else {
             throw new RuntimeException("File no found!");
         }
     }
 
-    public List<FileData> find(String path) {
+    public FileData find(String path) {
         Objects.requireNonNull(path);
         return fileMap.get(path);
     }
@@ -29,8 +27,8 @@ public class FileNavigator {
     public List<FileData> filterBySize(long maxFileSize) {
         if (maxFileSize > 0) {
             List<FileData> result = new ArrayList<>();
-            for (List<FileData> fileList : fileMap.values()) {
-                for (FileData fileData : fileList) {
+            for (FileData fileList : fileMap.values()) {
+                for (FileData fileData : fileMap.values()) {
                     if (fileData.getSize() <= maxFileSize) {
                         result.add(fileData);
                     }
@@ -48,9 +46,6 @@ public class FileNavigator {
     }
 
     public List<FileData> sortBySize() {
-        return fileMap.values().stream()
-                .flatMap(List::stream)
-                .sorted(Comparator.comparingLong(FileData::getSize))
-                .toList();
+        return fileMap.values().stream().sorted().toList();
     }
 }
