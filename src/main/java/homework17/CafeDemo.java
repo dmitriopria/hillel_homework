@@ -5,11 +5,10 @@ public class CafeDemo {
         CoffeeOrderBoard coffeeOrderBoard = new CoffeeOrderBoard();
         coffeeOrderBoard.add("Dima1");
         coffeeOrderBoard.add("Dima2");
-        coffeeOrderBoard.draw();
+        System.out.println(coffeeOrderBoard.draw().toString());
         coffeeOrderBoard.add("Julia");
         coffeeOrderBoard.deliver(1);
-//        coffeeOrderBoard.deliver(1);
         coffeeOrderBoard.deliver();
-        coffeeOrderBoard.draw();
+        System.out.println(coffeeOrderBoard.draw().toString());
     }
 }
