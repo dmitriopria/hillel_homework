@@ -27,7 +27,12 @@ public class CoffeeOrderBoard {
         }
     }
 
-    public List<Order> draw() {
-        return new ArrayList<>(orderMap.values());
+    public String draw() {
+        StringBuilder orderTable = new StringBuilder();
+        orderTable.append("Num | Name\n");
+        for (Order order : new ArrayList<>(orderMap.values())) {
+            orderTable.append(String.format("%-3d | %s%n", order.getOrderNumber(), order.getCustomerName()));
+        }
+        return orderTable.toString();
     }
 }
