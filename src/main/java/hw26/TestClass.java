@@ -1,28 +1,40 @@
 package hw26;
 
+import hw26.annotations.AfterSuite;
+import hw26.annotations.BeforeSuite;
+import hw26.annotations.Priority;
+import hw26.annotations.Test;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class TestClass {
+    private static final Logger LOGGER = Logger.getLogger(TestClass.class.getName());
+
     @BeforeSuite
     public void beforeSuiteMethod() {
-        System.out.println("BeforeSuite method");
+        LOGGER.log(Level.INFO, "BeforeSuite method");
     }
 
-    @Test(priority = 1)
+    @Priority(priority = 9)
+    @Test
     public void testMethod1() {
-        System.out.println("Test method 1");
+        LOGGER.log(Level.INFO, "Test method 1");
     }
 
-    @Test(priority = 6)
+    @Test
     public void testMethod2() {
-        System.out.println("Test method 2");
+        LOGGER.log(Level.INFO, "Test method 2");
     }
 
-    @Test(priority = 3)
+    @Test
+    @Priority(priority = 1)
     public void testMethod3() {
-        System.out.println("Test method 3");
+        LOGGER.log(Level.INFO, "Test method 3");
     }
 
     @AfterSuite
     public void afterSuiteMethod() {
-        System.out.println("AfterSuite method");
+        LOGGER.log(Level.INFO, "AfterSuite method");
     }
 }

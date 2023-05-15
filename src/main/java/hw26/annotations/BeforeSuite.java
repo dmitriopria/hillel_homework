@@ -1,4 +1,4 @@
-package hw26;
+package hw26.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

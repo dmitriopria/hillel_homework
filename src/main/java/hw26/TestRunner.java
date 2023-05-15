@@ -1,5 +1,10 @@
 package hw26;
 
+import hw26.annotations.AfterSuite;
+import hw26.annotations.BeforeSuite;
+import hw26.annotations.Priority;
+import hw26.annotations.Test;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -33,9 +38,15 @@ public class TestRunner {
                 .toList();
         List<Method> testMethods = Arrays.stream(methods)
                 .filter(method -> method.isAnnotationPresent(Test.class))
-                .sorted(Comparator.comparingInt(m -> m.getAnnotation(Test.class).priority()))
+                .sorted(Comparator.comparingInt(TestRunner::sortedByPriority))
                 .toList();
         return new AnnotatedMethodContainer(beforeSuiteMethods, afterSuiteMethods, testMethods);
+    }
+
+    private static int sortedByPriority(Method m) {
+        Priority testAnnotation = Test.class.getAnnotation(Priority.class);
+        Priority priorityAnnotation = m.getAnnotation(Priority.class);
+        return priorityAnnotation == null ? testAnnotation.priority() : priorityAnnotation.priority();
     }
 
     private static void checkSuiteAnnotationDuplicates(Class<?> clazz) {
