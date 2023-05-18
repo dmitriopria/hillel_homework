@@ -23,7 +23,7 @@ public class LessonDao {
                     INSERT INTO homework (name, description) VALUES (?, ?) RETURNING id
                     )
                 INSERT INTO lesson (name, homework_id) SELECT ?, id FROM new_homework
-                RETURNING lesson.id, lesson.updatedAt, (SELECT id FROM new_homework)
+                RETURNING lesson.id, lesson.updated_at, (SELECT id FROM new_homework)
                 """;
         try (PreparedStatement prepStatement = DataBaseConnection.getConnection()
                 .prepareStatement(sql)) {
@@ -78,7 +78,7 @@ public class LessonDao {
     public List<Lesson> getAll() {
         List<Lesson> lessons = new ArrayList<>();
         String sql = """
-                SELECT l.id, l.name, l.updatedAt, h.id, h.name, h.description
+                SELECT l.id, l.name, l.updated_at, h.id, h.name, h.description
                 FROM lesson l LEFT JOIN homework h ON l.homework_id = h.id;
                 """;
         try (PreparedStatement prepStatement = DataBaseConnection.getConnection()
@@ -98,7 +98,7 @@ public class LessonDao {
     public Lesson getOne(final Long id) {
         Lesson lesson = new Lesson();
         String sql = """
-                SELECT l.id, l.name, l.updatedAt, h.id, h.name, h.description
+                SELECT l.id, l.name, l.updated_at, h.id, h.name, h.description
                 FROM lesson l LEFT JOIN homework h ON l.homework_id = h.id
                 WHERE l.id = ?
                 """;
