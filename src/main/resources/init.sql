@@ -7,7 +7,7 @@ CREATE TABLE homework (
 CREATE TABLE lesson (
   id BIGSERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  updatedAt TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
   homework_id BIGINT NOT NULL,
   constraint homework_id_fk foreign key (homework_id) REFERENCES homework(id)
 );
@@ -15,7 +15,7 @@ CREATE TABLE lesson (
 CREATE TABLE schedule (
   id BIGSERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  updatedAt TIMESTAMP DEFAULT NOW()
+  updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE lesson_schedule (
@@ -38,7 +38,7 @@ INSERT INTO schedule (name) VALUES
 ('Schedule 1'),
 ('Schedule 2');
 
-INSERT INTO lesson_Schedule (lesson_id, schedule_id) VALUES
+INSERT INTO lesson_schedule (lesson_id, schedule_id) VALUES
 (1, 1),
 (2, 1),
 (2, 2);
