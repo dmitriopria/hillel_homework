@@ -1,25 +1,29 @@
 package hw19;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ValueCalculator {
-    private final  float[] array;
+    private final float[] array;
     private static final int SIZE = 1_000_000;
     private static final int HALF_SIZE = SIZE / 2;
+    private static final Logger LOGGER = Logger.getLogger(ValueCalculator.class.getName());
 
     public ValueCalculator() {
         this.array = new float[SIZE];
     }
 
-    public long calculateFillingTime(int value) {
+    public long calculateFillingTime() {
         long startTime = System.currentTimeMillis();
-        fillArray(value);
+        fillArray();
         long endTime = System.currentTimeMillis();
+        LOGGER.log(Level.INFO, "Filling array time is %d milliseconds".formatted(endTime - startTime));
         return endTime - startTime;
     }
 
-    private synchronized void fillArray(int value) {
-        Arrays.fill(array, value);
+    private synchronized float[] fillArray() {
         float[] firstHalf = new float[HALF_SIZE];
         float[] secondHalf = new float[HALF_SIZE];
         System.arraycopy(array, 0, firstHalf, 0, HALF_SIZE);
@@ -36,14 +40,21 @@ public class ValueCalculator {
         }
         System.arraycopy(firstHalf, 0, array, 0, HALF_SIZE);
         System.arraycopy(secondHalf, 0, array, HALF_SIZE, HALF_SIZE);
+        return array;
     }
 
     private Thread createThread(float[] inputArray) {
         return new Thread(() -> {
             for (int i = 0; i < HALF_SIZE; i++) {
-                inputArray[i] = (float) (inputArray[i] * Math.sin(0.2f + (float) i / 5)
-                        * Math.cos(0.2f + (float) i / 5) * Math.cos(0.4f + (float) i / 2));
+                inputArray[i] = ThreadLocalRandom.current().nextFloat(inputArray.length);
             }
         });
+    }
+
+    @Override
+    public String toString() {
+        return "ValueCalculator{" +
+                "array=" + Arrays.toString(array) +
+                '}';
     }
 }
