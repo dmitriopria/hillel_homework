@@ -26,19 +26,24 @@ CREATE TABLE lesson_schedule (
 
 INSERT INTO homework (name, description) VALUES
 ('HW1', 'Complete exercises 1-5'),
+('HW1', 'Complete exercises 6-8'),
 ('HW2', 'Write a short essay on a given topic');
 
 INSERT INTO lesson (name, homework_id) VALUES
 ('Lesson 1', 1),
 ('Lesson 2', 1),
 ('Lesson 3', 2),
-('Lesson 4', 2);
+('Lesson 4', 2),
+('Lesson 5', 3);
 
 INSERT INTO schedule (name) VALUES
 ('Schedule 1'),
-('Schedule 2');
+('Schedule 2'),
+('Schedule 3');
 
 INSERT INTO lesson_schedule (lesson_id, schedule_id) VALUES
 (1, 1),
 (2, 1),
-(2, 2);
+(3, 2),
+(4, 2),
+(5, 3);
