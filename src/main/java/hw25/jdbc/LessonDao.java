@@ -13,30 +13,25 @@ import java.util.Objects;
 
 public class LessonDao {
 
-    public Lesson insert(final Lesson lesson) {
+    public Lesson insert(final Lesson lesson, final Homework homework) {
         Objects.requireNonNull(lesson);
+        Objects.requireNonNull(homework);
         if (lesson.getId() != null) {
-            throw new JdbcOperationException("ID mustn't be provided during th insert operation!");
+            throw new JdbcOperationException("ID mustn't be provided during the insert operation!");
         }
-        String sql = """
-                WITH new_homework AS (
-                    INSERT INTO homework (name, description) VALUES (?, ?) RETURNING id
-                    )
-                INSERT INTO lesson (name, homework_id) SELECT ?, id FROM new_homework
-                RETURNING lesson.id, lesson.updated_at, (SELECT id FROM new_homework)
-                """;
+        String sql = SQLQuery.INSERT_LESSON_AND_HOMEWORK_RETURNING_LESSON;
         try (PreparedStatement prepStatement = DataBaseConnection.getConnection()
                 .prepareStatement(sql)) {
             int setIndex = 1;
-            prepStatement.setString(setIndex++, lesson.getHomework().getName());
-            prepStatement.setString(setIndex++, lesson.getHomework().getDescription());
+            prepStatement.setString(setIndex++, homework.getName());
+            prepStatement.setString(setIndex++, homework.getDescription());
             prepStatement.setString(setIndex, lesson.getName());
             ResultSet resultSet = prepStatement.executeQuery();
             if (resultSet.next()) {
                 int getIndex = 1;
                 lesson.setId(resultSet.getLong(getIndex++));
-                lesson.setTimeStamp(resultSet.getTimestamp(getIndex++).toLocalDateTime());
-                lesson.getHomework().setId(resultSet.getLong(getIndex));
+                lesson.setCreatedAt(resultSet.getTimestamp(getIndex++).toLocalDateTime());
+                homework.setId(resultSet.getLong(getIndex));
             } else {
                 throw new JdbcOperationException("No rows were inserted!");
             }
@@ -48,13 +43,7 @@ public class LessonDao {
 
     public String delete(final Long id) {
         Objects.requireNonNull(id);
-        String sql = """
-                WITH deleted_homework AS (DELETE FROM lesson WHERE id = ?
-                  RETURNING homework_id)
-                DELETE FROM homework WHERE id IN (SELECT homework_id FROM deleted_homework)
-                 AND NOT EXISTS (SELECT 1 FROM lesson WHERE homework_id = 
-                  (SELECT homework_id FROM deleted_homework) AND id <> ?)
-                """;
+        String sql = SQLQuery.DELETE_LESSON_AND_CORRESPONDING_HOMEWORK;
         try (PreparedStatement prepStatement = DataBaseConnection.getConnection()
                 .prepareStatement(sql)) {
             int index = 1;
@@ -77,16 +66,12 @@ public class LessonDao {
 
     public List<Lesson> getAll() {
         List<Lesson> lessons = new ArrayList<>();
-        String sql = """
-                SELECT l.id, l.name, l.updated_at, h.id, h.name, h.description
-                FROM lesson l LEFT JOIN homework h ON l.homework_id = h.id;
-                """;
+        String sql = SQLQuery.SELECT_ALL_LESSONS_WITH_CORRESPONDING_HOMEWORK;
         try (PreparedStatement prepStatement = DataBaseConnection.getConnection()
                 .prepareStatement(sql)) {
             ResultSet resultSet = prepStatement.executeQuery();
             while (resultSet.next()) {
-                int index = 1;
-                Lesson lesson = retreiveLesson(resultSet, index);
+                Lesson lesson = retreiveLesson(resultSet);
                 lessons.add(lesson);
             }
             return lessons;
@@ -97,19 +82,14 @@ public class LessonDao {
 
     public Lesson getOne(final Long id) {
         Lesson lesson = new Lesson();
-        String sql = """
-                SELECT l.id, l.name, l.updated_at, h.id, h.name, h.description
-                FROM lesson l LEFT JOIN homework h ON l.homework_id = h.id
-                WHERE l.id = ?
-                """;
+        String sql = SQLQuery.SELECT_LESSON_BY_ID_WITH_CORRESPONDING_HOMEWORK;
         try (PreparedStatement prepStatement = DataBaseConnection.getConnection()
                 .prepareStatement(sql)) {
-            int setIndex = 1;
-            prepStatement.setLong(setIndex, id);
+            int index = 1;
+            prepStatement.setLong(index, id);
             ResultSet resultSet = prepStatement.executeQuery();
             if (resultSet.next()) {
-                int getIndex = 1;
-                lesson = retreiveLesson(resultSet, getIndex);
+                lesson = retreiveLesson(resultSet);
             }
             return lesson;
         } catch (SQLException e) {
@@ -117,12 +97,13 @@ public class LessonDao {
         }
     }
 
-    private Lesson retreiveLesson(ResultSet resultSet, int index) throws SQLException {
+    private Lesson retreiveLesson(ResultSet resultSet) throws SQLException {
         Lesson lesson = new Lesson();
         Homework homework = new Homework();
+        int index = 1;
         lesson.setId(resultSet.getLong(index++));
         lesson.setName(resultSet.getString(index++));
-        lesson.setTimeStamp(resultSet.getTimestamp(index++).toLocalDateTime());
+        lesson.setCreatedAt(resultSet.getTimestamp(index++).toLocalDateTime());
         homework.setId(resultSet.getLong(index++));
         homework.setName(resultSet.getString(index++));
         homework.setDescription(resultSet.getString(index));

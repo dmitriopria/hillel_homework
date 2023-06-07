@@ -6,15 +6,15 @@ import java.util.Objects;
 public class Lesson {
     private Long id;
     private String name;
-    private LocalDateTime timeStamp;
+    private LocalDateTime createdAt;
     private Homework homework;
 
     public Lesson() {
     }
 
-    public Lesson(String name, String homeWorkName, String homeWorkDescription) {
+    public Lesson(String name, Homework homework) {
         this.name = name;
-        this.homework = new Homework(homeWorkName, homeWorkDescription);
+        this.homework = Objects.requireNonNull(homework);
     }
 
     public Long getId() {
@@ -33,12 +33,12 @@ public class Lesson {
         this.name = name;
     }
 
-    public LocalDateTime getTimeStamp() {
-        return timeStamp;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTimeStamp(LocalDateTime timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Homework getHomework() {
@@ -54,12 +54,12 @@ public class Lesson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
-        return Objects.equals(id, lesson.id) && Objects.equals(name, lesson.name) && Objects.equals(timeStamp, lesson.timeStamp) && Objects.equals(homework, lesson.homework);
+        return Objects.equals(id, lesson.id) && Objects.equals(name, lesson.name) && Objects.equals(createdAt, lesson.createdAt) && Objects.equals(homework, lesson.homework);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, timeStamp, homework);
+        return Objects.hash(id, name, createdAt, homework);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Lesson {
         return "Lesson{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", timeStamp=" + timeStamp +
+                ", timeStamp=" + createdAt +
                 ", homework=" + homework +
                 "}\n";
     }
