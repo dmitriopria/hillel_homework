@@ -3,15 +3,15 @@ package hw27.builder;
 import hw27.builder.car_details.*;
 
 public interface Builder {
-    void setCarType(CarType type);
+    void carType(CarType type);
 
-    void setSeats(int seats);
+    void seats(int seats);
 
-    void setEngine(Engine engine);
+    void engine(Engine engine);
 
-    void setTransmission(Transmission transmission);
+    void transmission(Transmission transmission);
 
-    void setTripComputer(TripComputer tripComputer);
+    void tripComputer(TripComputer tripComputer);
 
-    void setGPSNavigator(GPSNavigator gpsNavigator);
+    void gpsNavigator(GPSNavigator gpsNavigator);
 }

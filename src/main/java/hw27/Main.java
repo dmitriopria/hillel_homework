@@ -17,7 +17,7 @@ public class Main {
         CarFactory carFactory = new CarFactory();
         CarBuilder builder = new CarBuilder();
         carFactory.constructCityCar(builder);
-        Car car = builder.getResult();
+        Car car = builder.build();
         System.out.println(car);
 
         FurnitureFactory furnitureFactory = new FurnitureFactory();

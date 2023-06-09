@@ -11,36 +11,36 @@ public class CarBuilder implements Builder {
     private GPSNavigator gpsNavigator;
 
     @Override
-    public void setCarType(CarType type) {
+    public void carType(CarType type) {
         this.type = type;
     }
 
     @Override
-    public void setSeats(int seats) {
+    public void seats(int seats) {
         this.seats = seats;
     }
 
     @Override
-    public void setEngine(Engine engine) {
+    public void engine(Engine engine) {
         this.engine = engine;
     }
 
     @Override
-    public void setTransmission(Transmission transmission) {
+    public void transmission(Transmission transmission) {
         this.transmission = transmission;
     }
 
     @Override
-    public void setTripComputer(TripComputer tripComputer) {
+    public void tripComputer(TripComputer tripComputer) {
         this.tripComputer = tripComputer;
     }
 
     @Override
-    public void setGPSNavigator(GPSNavigator gpsNavigator) {
+    public void gpsNavigator(GPSNavigator gpsNavigator) {
         this.gpsNavigator = gpsNavigator;
     }
 
-    public Car getResult() {
+    public Car build() {
         return new Car(type, seats, engine, transmission, tripComputer, gpsNavigator);
     }
 }
