@@ -1,4 +1,4 @@
-package hw10;
+package hw28;
 
 public class MathLibrary {
     public static double sum(double a, double b) {
