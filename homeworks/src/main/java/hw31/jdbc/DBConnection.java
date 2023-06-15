@@ -2,7 +2,6 @@ package hw31.jdbc;
 
 import hw31.exception.JdbcOperationException;
 import org.postgresql.ds.PGSimpleDataSource;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Properties;
 
-@Service
 public class DBConnection {
     private static final String DB_PROPS = "db.properties";
     private static final String DB_URL = "db.url";

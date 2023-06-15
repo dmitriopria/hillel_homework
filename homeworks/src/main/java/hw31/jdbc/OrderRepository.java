@@ -24,7 +24,7 @@ public class OrderRepository {
         if (id < 1) {
             throw new JdbcOperationException("Order id can't be negative or zero!");
         }
-        Order order = null;
+        Order order;
         String sql = SQLQuery.GET_ORDER_BY_ID;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -32,6 +32,8 @@ public class OrderRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 order = mapOrder(resultSet);
+            } else {
+                throw new JdbcOperationException("Can't find any order with ID %d!".formatted(id));
             }
             return order;
         } catch (SQLException e) {

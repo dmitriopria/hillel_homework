@@ -1,6 +1,9 @@
 package hw31.jdbc;
 
-public class SQLQuery {
+public final class SQLQuery {
+    private SQLQuery(){
+    }
+
     public static final String ADD_PRODUCT = """
             INSERT INTO product (name, cost) VALUES (?, ?)
             """;

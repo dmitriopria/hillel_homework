@@ -1,10 +1,7 @@
 package hw31.entity;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Objects;
 
-@Service
 public class Product {
     private int id;
     private String name;
