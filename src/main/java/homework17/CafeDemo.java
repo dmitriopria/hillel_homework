@@ -10,5 +10,7 @@ public class CafeDemo {
         coffeeOrderBoard.deliver(1);
         coffeeOrderBoard.deliver();
         System.out.println(coffeeOrderBoard.draw());
+        coffeeOrderBoard.deliver();
+        coffeeOrderBoard.deliver();
     }
 }
