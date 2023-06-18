@@ -1,0 +1,11 @@
+
+21:21:09.279 [main] INFO  homework17.CoffeeOrderBoard - Added order: OrderNumber=1, CustomerName=Dima1
+21:21:09.282 [main] INFO  homework17.CoffeeOrderBoard - Added order: OrderNumber=2, CustomerName=Dima2
+21:21:09.284 [main] INFO  homework17.CoffeeOrderBoard - Drawing order board
+21:21:09.284 [main] INFO  homework17.CoffeeOrderBoard - Added order: OrderNumber=3, CustomerName=Julia
+21:21:09.284 [main] INFO  homework17.CoffeeOrderBoard - Delivered order: OrderNumber=1
+21:21:09.285 [main] INFO  homework17.CoffeeOrderBoard - Delivered order: OrderNumber=3
+21:21:09.285 [main] INFO  homework17.CoffeeOrderBoard - Drawing order board
+21:21:09.285 [main] INFO  homework17.CoffeeOrderBoard - Delivered order: OrderNumber=3
+21:21:09.285 [main] ERROR homework17.CoffeeOrderBoard - Can't deliver non-exist order: OrderNumber=3, 
+ You don't have any orders to deliver!
