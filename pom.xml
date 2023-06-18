@@ -37,6 +37,11 @@
             <artifactId>junit-platform-console-standalone</artifactId>
             <version>1.9.3</version>
             <scope>test</scope>
+          <dependency>
+          <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
         </dependency>
     </dependencies>
 </project>
