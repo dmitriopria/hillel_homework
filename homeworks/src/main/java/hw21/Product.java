@@ -21,7 +21,7 @@ public class Product {
     }
 
     public boolean isBook() {
-        return getType() == BOOK;
+        return getType() == ProductType.BOOK;
     }
 
     public boolean isCurrentYearSupply() {

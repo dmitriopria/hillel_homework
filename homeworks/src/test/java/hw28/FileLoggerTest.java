@@ -3,10 +3,7 @@ package hw28;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import static org.mockito.Mockito.verify;
 
@@ -28,7 +25,7 @@ class FileLoggerTest {
     void whenPerformDebugMessageThenCaptureThisMessage() {
         String message = "Debug message";
         logger.debug(message);
-        verify(logger).debug(argumentCaptor.capture());
+        Mockito.verify(logger).debug(argumentCaptor.capture());
         String capturedArgument = argumentCaptor.getValue();
         Assertions.assertEquals(message, capturedArgument);
     }
@@ -37,7 +34,7 @@ class FileLoggerTest {
     void whenPerformInfoMessageThenCaptureThisMessage() {
         String message = "Info message";
         logger.info(message);
-        verify(logger).info(argumentCaptor.capture());
+        Mockito.verify(logger).info(argumentCaptor.capture());
         String capturedArgument = argumentCaptor.getValue();
         Assertions.assertEquals(message, capturedArgument);
     }

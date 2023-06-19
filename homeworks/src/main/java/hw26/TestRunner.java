@@ -9,17 +9,17 @@ public class TestRunner {
     public static void start(Class<?> clazz) {
         Objects.requireNonNull(clazz);
         try {
-            checkSuiteAnnotationDuplicates(clazz);
-            AnnotatedMethodContainer annotatedMethod = createMethodContainer(clazz);
+            ReflectionUtils.checkSuiteAnnotationDuplicates(clazz);
+            AnnotatedMethodContainer annotatedMethod = ReflectionUtils.createMethodContainer(clazz);
             Object instance = clazz.getDeclaredConstructor().newInstance();
             if (!annotatedMethod.beforeSuiteMethods().isEmpty()) {
-                annotatedMethod.beforeSuiteMethods().forEach(method -> invokeMethod(method, instance));
+                annotatedMethod.beforeSuiteMethods().forEach(method -> ReflectionUtils.invokeMethod(method, instance));
             }
             if (!annotatedMethod.testMethods().isEmpty()) {
-                annotatedMethod.testMethods().forEach(method -> invokeMethod(method, instance));
+                annotatedMethod.testMethods().forEach(method -> ReflectionUtils.invokeMethod(method, instance));
             }
             if (!annotatedMethod.afterSuiteMethods().isEmpty()) {
-                annotatedMethod.afterSuiteMethods().forEach(method -> invokeMethod(method, instance));
+                annotatedMethod.afterSuiteMethods().forEach(method -> ReflectionUtils.invokeMethod(method, instance));
             }
         } catch (InstantiationException | IllegalAccessException |
                  InvocationTargetException | NoSuchMethodException e) {
