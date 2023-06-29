@@ -1,27 +1,19 @@
 package hw35;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         StudentDAO studentDAO = new StudentDAO();
 
-//        Student newStudent = new Student();
-//        newStudent.setName("Dima");
-//        newStudent.setEmail("dima@example.com");
-//        studentDAO.addStudent(newStudent);
-//        System.out.println(studentDAO.getStudentById(1));
-//
-//        Student existingStudent = studentDAO.getStudentById(1);
-//        existingStudent.setEmail("updated.email@example.com");
-//        studentDAO.updateStudent(existingStudent);
-        System.out.println(studentDAO.getStudentById(2));
+        LOGGER.info("Retrieving student by ID: 2");
+        LOGGER.info(studentDAO.getStudentById(2).toString());
 
-//        Student studentToDelete = studentDAO.getStudentById(2);
-//        studentDAO.deleteStudent(studentToDelete.getId());
-
+        LOGGER.info("Retrieving all students:");
         List<Student> allStudents = studentDAO.getAllStudents();
-        System.out.println("All students:");
-        allStudents.forEach(System.out::println);
+        allStudents.forEach(student -> LOGGER.info(student.toString()));
     }
 }

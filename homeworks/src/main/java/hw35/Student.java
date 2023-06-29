@@ -14,7 +14,7 @@ public class Student {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     public Student(String name, String email) {
