@@ -1,4 +1,4 @@
-package hw37;
+package hw37.config;
 
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
