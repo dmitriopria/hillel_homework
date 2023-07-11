@@ -11,7 +11,5 @@ public class SQLQuery {
     public static final String DELETE_PRODUCT_FROM_CART = "DELETE FROM cart_items WHERE product_id = ?";
     public static final String DELETE_ALL_PRODUCTS_FROM_CART = "DELETE FROM cart_items WHERE cart_id = ?";
     public static final String DELETE_CART_BY_ID = "DELETE FROM cart WHERE id = ?";
-    public static final String SELECT_CART_BY_ID = "SELECT id FROM carts WHERE id = ?";
-    public static final String SELECT_PRODUCTS_FROM_CART = "SELECT product_id FROM cart_items WHERE cart_id = ?";
-
+    public static final String SELECT_PRODUCTS_FROM_CART = "SELECT cart_id, product_id FROM cart_items WHERE cart_id = ?";
 }

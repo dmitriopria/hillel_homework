@@ -9,30 +9,29 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static hw37.SQLQuery.*;
+import java.util.Objects;
 
 @Component
 public class CartMapper implements RowMapper<Cart> {
-    private JdbcTemplate jdbcTemplate;
     private ProductDao productDao;
 
     public CartMapper(final JdbcTemplate jdbcTemplate, final ProductDao productDao) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.productDao = productDao;
+        this.productDao = Objects.requireNonNull(productDao);
     }
 
     @Override
     public Cart mapRow(ResultSet rs, int rowNum) throws SQLException {
         Cart cart = new Cart();
-        cart.setId(rs.getLong("id"));
+        cart.setId(rs.getLong("cart_id"));
         if (cart.getId() != null) {
-            List<Integer> productIds = jdbcTemplate.queryForList(SELECT_PRODUCTS_FROM_CART, Integer.class, cart.getId());
-            List<Product> products = productIds.stream()
-                    .map(productId -> productDao.getProductById(productId))
-                    .collect(Collectors.toList());
+            List<Product> products = new ArrayList<>();
+            while (rs.next()) {
+                long productId = rs.getLong("product_id");
+                Product product = productDao.getProductById(productId);
+                products.add(product);
+            }
             cart.setProducts(products);
         }
         return cart;
