@@ -18,8 +18,8 @@ public class ProductDao {
     private ProductMapper productMapper;
 
     public ProductDao(final JdbcTemplate jdbcTemplate, final ProductMapper productMapper) {
-        this.jdbcTemplate = Objects.requireNonNull(jdbcTemplate);
-        this.productMapper = Objects.requireNonNull(productMapper);
+        this.jdbcTemplate = jdbcTemplate;
+        this.productMapper = productMapper;
     }
 
     public Product addProduct(final Product product) {

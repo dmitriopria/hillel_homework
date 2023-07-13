@@ -3,7 +3,6 @@ package hw37.mapper;
 import hw37.dao.ProductDao;
 import hw37.entity.Cart;
 import hw37.entity.Product;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -11,14 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class CartMapper implements RowMapper<Cart> {
     private ProductDao productDao;
 
-    public CartMapper(final JdbcTemplate jdbcTemplate, final ProductDao productDao) {
-        this.productDao = Objects.requireNonNull(productDao);
+    public CartMapper(final ProductDao productDao) {
+        this.productDao = productDao;
     }
 
     @Override

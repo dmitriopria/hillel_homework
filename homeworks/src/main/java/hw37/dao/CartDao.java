@@ -16,8 +16,8 @@ public class CartDao {
     private CartMapper cartMapper;
 
     public CartDao(final JdbcTemplate jdbcTemplate, final CartMapper cartMapper) {
-        this.jdbcTemplate = Objects.requireNonNull(jdbcTemplate);
-        this.cartMapper = Objects.requireNonNull(cartMapper);
+        this.jdbcTemplate = jdbcTemplate;
+        this.cartMapper = cartMapper;
     }
 
     public Cart createCart() {
