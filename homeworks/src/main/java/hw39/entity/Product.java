@@ -1,5 +1,6 @@
-package hw39;
+package hw39.entity;
 
+import jakarta.persistence.Entity;
 import lombok.*;
 
 @NoArgsConstructor
@@ -7,6 +8,7 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 @ToString
+@Entity
 public class Product {
     private Long id;
     private String name;

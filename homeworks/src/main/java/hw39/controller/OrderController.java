@@ -1,5 +1,7 @@
-package hw39;
+package hw39.controller;
 
+import hw39.dao.OrderService;
+import hw39.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

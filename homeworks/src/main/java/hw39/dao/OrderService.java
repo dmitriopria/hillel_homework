@@ -1,9 +1,11 @@
-package hw39;
+package hw39.dao;
 
+import hw39.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderService {
@@ -15,7 +17,7 @@ public class OrderService {
     }
 
     public Order getOrderById(final Long id) {
-        return orderRepository.findById(id).orElse(null);
+        return orderRepository.findById(Objects.requireNonNull(id)).orElse(null);
     }
 
     public List<Order> getAllOrders() {
@@ -23,6 +25,6 @@ public class OrderService {
     }
 
     public Order addOrder(final Order order) {
-        return orderRepository.save(order);
+        return orderRepository.save(Objects.requireNonNull(order));
     }
 }

@@ -1,5 +1,6 @@
-package hw39;
+package hw39.entity;
 
+import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
+@Entity
 public class Order {
     private Long id;
     private LocalDateTime date;
