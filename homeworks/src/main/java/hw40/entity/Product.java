@@ -3,6 +3,8 @@ package hw40.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -21,8 +23,12 @@ public class Product {
     @Column(name = "cost")
     private Double cost;
 
-    public Product(String name, Double cost) {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    private List<OrderProduct> orderProducts;
+
+    public Product(String name, Double cost, List<OrderProduct> orderProducts) {
         this.name = name;
         this.cost = cost;
+        this.orderProducts = orderProducts;
     }
 }

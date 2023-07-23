@@ -41,4 +41,10 @@ public class OrderController {
         orderService.deleteOrder(order);
         return ResponseEntity.ok().body("Order with ID " + id + " has been deleted.");
     }
+
+    @GetMapping("/{id}/products")
+    public ResponseEntity<Order> getOrderWithRelatedProducts(@PathVariable final Long id) {
+        Order orderWithProducts = orderService.getOrderWithRelatedProducts(id);
+        return ResponseEntity.ok().body(orderWithProducts);
+    }
 }
