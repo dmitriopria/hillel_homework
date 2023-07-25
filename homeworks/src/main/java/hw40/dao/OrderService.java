@@ -10,28 +10,32 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
 
+    @Transactional(readOnly = true)
     public Order getOrderById(final Long id) {
         validateOrderId(id);
         return orderRepository.findById(id).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    @Transactional
     public Order addOrder(final Order order) {
         return orderRepository.save(Objects.requireNonNull(order));
     }
 
-    @Transactional
-    public void deleteOrder(final Order order) {
+    public void deleteOrder(final Long id) {
+        validateOrderId(id);
+        Order order = getOrderById(id);
         orderRepository.delete(Objects.requireNonNull(order));
     }
 
+    @Transactional(readOnly = true)
     public Order getOrderWithRelatedProducts(final Long orderId) {
         validateOrderId(orderId);
         return orderRepository.findByIdWithRelatedProducts(orderId);

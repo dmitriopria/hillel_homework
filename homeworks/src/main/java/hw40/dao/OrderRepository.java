@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("SELECT o FROM Order o JOIN FETCH o.orderProducts op JOIN FETCH op.product p WHERE o.id = ?1")
+    @Query("SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.orderProducts op LEFT JOIN FETCH op.product p WHERE o.id = ?1")
     Order findByIdWithRelatedProducts(Long id);
 }

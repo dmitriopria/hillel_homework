@@ -37,8 +37,7 @@ public class OrderController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable final Long id) {
-        Order order = orderService.getOrderById(id);
-        orderService.deleteOrder(order);
+        orderService.deleteOrder(id);
         return ResponseEntity.ok().body("Order with ID " + id + " has been deleted.");
     }
 

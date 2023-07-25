@@ -23,12 +23,13 @@ public class Product {
     @Column(name = "cost")
     private Double cost;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private List<OrderProduct> orderProducts;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    public Product(String name, Double cost, List<OrderProduct> orderProducts) {
+    public Product(String name, Double cost, Order order) {
         this.name = name;
         this.cost = cost;
-        this.orderProducts = orderProducts;
+        this.order = order;
     }
 }

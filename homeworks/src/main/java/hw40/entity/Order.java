@@ -25,12 +25,12 @@ public class Order {
     @Column(name = "cost")
     private Double cost;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
-    private List<OrderProduct> orderProducts;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "order")
+    private List<Product> products;
 
-    public Order(LocalDateTime date, Double cost, List<OrderProduct> orderProducts) {
+    public Order(LocalDateTime date, Double cost, List<Product> products) {
         this.date = date;
         this.cost = cost;
-        this.orderProducts = orderProducts;
+        this.products = products;
     }
 }
