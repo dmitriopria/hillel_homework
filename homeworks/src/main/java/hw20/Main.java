@@ -1,8 +1,9 @@
 package hw20;
 
+import hw30server.ExecutorServiceWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
@@ -19,8 +20,8 @@ public class Main {
         dispensers.add(new FuelDispenser(station, 15));
         dispensers.add(new FuelDispenser(station, 25));
         dispensers.add(new FuelDispenser(station, 20));
-        try (ExecutorService executor = Executors.newFixedThreadPool(dispensers.size())) {
-            executor.invokeAll(dispensers);
+        try (ExecutorServiceWrapper executorServiceWrapper = new ExecutorServiceWrapper(Executors.newCachedThreadPool())) {
+            executorServiceWrapper.getExecutorService().invokeAll(dispensers);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

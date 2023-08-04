@@ -5,7 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
@@ -21,13 +20,13 @@ public class Server {
 
     public void start() {
         try (ServerSocket serverSocket = new ServerSocket(PORT);
-             ExecutorService executorService = Executors.newCachedThreadPool()) {
+             ExecutorServiceWrapper executorServiceWrapper = new ExecutorServiceWrapper(Executors.newCachedThreadPool())) {
             LOGGER.info("Server started. Listening on port " + PORT);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 ClientHandler clientHandler = new ClientHandler(clientSocket, activeConnections);
                 activeConnections.add(clientHandler);
-                executorService.execute(clientHandler);
+                executorServiceWrapper.getExecutorService().execute(clientHandler);
                 if (activeConnections.isEmpty()) {
                     LOGGER.info("No active connections. Stopping the server.");
                     break;

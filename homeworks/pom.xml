@@ -71,12 +71,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-      
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>3.1.1</version>
         </dependency>
@@ -90,6 +84,21 @@
             <artifactId>spring-jdbc</artifactId>
             <version>6.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>3.1.1</version>
+        </dependency>
       
         <dependency>
             <groupId>org.hibernate.orm</groupId>
@@ -102,13 +111,7 @@
             <version>1.18.28</version>
             <scope>provided</scope>
         </dependency>
-      
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>3.1.2</version>
-        </dependency>
-      
+
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>server</artifactId>
