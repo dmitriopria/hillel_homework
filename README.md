@@ -1,7 +1,7 @@
-Programming Tools
-Introduction and course plan.
-Version control systems: Git. Vendors: Github, Gitlab. Basic commands.
-Advanced Git management.
+## Programming Tools
+## Introduction and course plan.
+###Version control systems: Git. Vendors: Github, Gitlab. Basic commands.
+### Advanced Git management.
 
 Introduction to Object-Oriented Programming (OOP)
 Principle of OOP: Encapsulation.
